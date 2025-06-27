@@ -333,7 +333,7 @@
                         <div class="stat-label">Progress</div>
                     </div>
                 </div>
-                <button class="new-game-btn" onclick="newGame()">Start New Game</button>
+                <button class="new-game-btn" onclick="newGame()">Reset My Progress</button>
             </div>
         </div>
     </div>
@@ -372,26 +372,57 @@
         let gameState = {};
 
         function generatePlayerTasks(firstName, lastName) {
-            // Create a simple hash from the player's name to ensure consistency
-            const nameHash = (firstName + lastName).split('').reduce((a, b) => {
-                a = ((a << 5) - a) + b.charCodeAt(0);
-                return a & a;
-            }, 0);
+            // Create a better hash from the player's name
+            let hash = 0;
+            const fullName = (firstName + lastName).toLowerCase();
             
-            // Use the hash to seed task selection
+            for (let i = 0; i < fullName.length; i++) {
+                const char = fullName.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            
+            // Make sure hash is positive and add extra variation
+            hash = Math.abs(hash) + fullName.length * 1000;
+            
+            // Create a seeded random number generator
+            function seededRandom(seed) {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            }
+            
+            // Shuffle the tasks array using seeded randomness
             const shuffledTasks = [...allTasks];
-            const seed = Math.abs(nameHash);
+            let currentSeed = hash;
             
-            // Fisher-Yates shuffle with seeded randomness
             for (let i = shuffledTasks.length - 1; i > 0; i--) {
-                const j = Math.floor(((seed + i) * 9301 + 49297) % 233280 / 233280) * (i + 1);
+                currentSeed = (currentSeed * 9301 + 49297) % 233280;
+                const random = seededRandom(currentSeed);
+                const j = Math.floor(random * (i + 1));
                 [shuffledTasks[i], shuffledTasks[j]] = [shuffledTasks[j], shuffledTasks[i]];
             }
             
-            return shuffledTasks; // Return all 24 tasks
+            return shuffledTasks;
         }
 
         let isGameStarting = false;
+        let savedGames = {}; // Store all player progress in memory
+
+        function saveGameState(playerName, gameState) {
+            const saveKey = playerName.replace(/\s+/g, '_').toLowerCase();
+            savedGames[saveKey] = JSON.parse(JSON.stringify(gameState));
+            console.log('Saved progress for', playerName);
+        }
+
+        function loadGameState(playerName) {
+            const saveKey = playerName.replace(/\s+/g, '_').toLowerCase();
+            const saved = savedGames[saveKey];
+            if (saved) {
+                console.log('Loaded saved progress for', playerName);
+                return JSON.parse(JSON.stringify(saved));
+            }
+            return null;
+        }
 
         function startGame() {
             if (isGameStarting) {
@@ -411,13 +442,26 @@
             currentPlayer = `${firstName} ${lastName}`;
             playerTasks = generatePlayerTasks(firstName, lastName);
             
-            // Initialize game state for all 25 squares
-            gameState = {};
-            for (let i = 0; i < 25; i++) {
-                gameState[i] = { completed: false, number: '' };
+            // Try to load existing progress
+            const savedState = loadGameState(currentPlayer);
+            
+            if (savedState) {
+                // Use saved progress
+                gameState = savedState;
+                console.log('Loaded saved progress for', currentPlayer);
+            } else {
+                // Initialize new game state for all 25 squares
+                gameState = {};
+                for (let i = 0; i < 25; i++) {
+                    gameState[i] = { completed: false, number: '' };
+                }
+                // Free space is always completed
+                gameState[12] = { completed: true, number: 'FREE' };
+                
+                // Save the initial state
+                saveGameState(currentPlayer, gameState);
+                console.log('Created new game for', currentPlayer);
             }
-            // Free space is always completed
-            gameState[12] = { completed: true, number: 'FREE' };
             
             document.getElementById('welcomeScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
@@ -493,6 +537,9 @@
             const wasCompleted = gameState[index].completed;
             gameState[index].completed = value.length === 10;
             
+            // Save progress immediately
+            saveGameState(currentPlayer, gameState);
+            
             // Update square appearance if completion status changed
             if (wasCompleted !== gameState[index].completed) {
                 const square = document.querySelector(`[data-index="${index}"]`);
@@ -524,6 +571,13 @@
         }
 
         function newGame() {
+            if (currentPlayer && confirm('Are you sure you want to start a new game? This will reset your current progress.')) {
+                // Clear saved progress for current player
+                const saveKey = currentPlayer.replace(/\s+/g, '_').toLowerCase();
+                delete savedGames[saveKey];
+                console.log('Cleared progress for', currentPlayer);
+            }
+            
             isGameStarting = false;
             document.getElementById('gameScreen').style.display = 'none';
             document.getElementById('welcomeScreen').style.display = 'block';
