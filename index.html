@@ -127,10 +127,10 @@
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
-            padding: 12px 8px;
+            padding: 10px 6px;
             text-align: center;
             transition: all 0.3s;
-            min-height: 130px;
+            min-height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -163,15 +163,16 @@
 
         .number-input {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px 16px;
             border: 1px solid #ddd;
             border-radius: 5px;
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: 500;
             background: rgba(255,255,255,0.9);
-            min-width: 120px;
-            letter-spacing: 1px;
+            min-width: 140px;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
         }
 
         .completed .number-input {
@@ -271,9 +272,10 @@
             }
             
             .number-input {
-                padding: 8px 10px;
-                font-size: 1em;
-                min-width: 100px;
+                padding: 10px 12px;
+                font-size: 1.1em;
+                min-width: 120px;
+                letter-spacing: 1.5px;
             }
         }
 
@@ -292,9 +294,10 @@
             }
             
             .number-input {
-                padding: 6px 8px;
-                font-size: 0.95em;
-                min-width: 90px;
+                padding: 8px 10px;
+                font-size: 1em;
+                min-width: 100px;
+                letter-spacing: 1px;
             }
         }
     </style>
@@ -303,8 +306,8 @@
     <div class="container">
         <!-- Welcome Screen -->
         <div class="welcome-screen" id="welcomeScreen">
-            <h1>🎯 Personal Bingo Challenge</h1>
-            <p>Get your unique bingo card and start completing tasks! Each player gets one of 50 different card layouts - unlikely anyone will have the same arrangement as you!</p>
+            <h1>🎯 Customer Care Bingo Challenge</h1>
+            <p>Get your unique bingo card and start completing tasks!</p>
             
             <div class="name-input">
                 <input type="text" id="firstName" placeholder="First Name" maxlength="20">
@@ -316,9 +319,8 @@
         <!-- Game Screen -->
         <div class="game-screen" id="gameScreen">
             <div class="game-header">
-                <h2>🎯 Bingo Challenge</h2>
+                <h2>🎯 Customer Care Bingo Challenge</h2>
                 <div class="player-name" id="playerName"></div>
-                <div style="color: #666; font-size: 0.9em; margin-top: 5px;" id="cardNumber"></div>
             </div>
 
             <div class="bingo-board" id="bingoBoard">
@@ -405,16 +407,6 @@
             return cards;
         }
 
-        // Generate all 50 cards when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            preGeneratedCards.push(...generateAllCardLayouts());
-            console.log('Generated 50 unique bingo card layouts');
-        });
-
-        let currentPlayer = '';
-        let playerTasks = [];
-        let gameState = {};
-
         function generatePlayerTasks(firstName, lastName) {
             // Create hash from name to determine which of the 50 cards they get
             let hash = 0;
@@ -436,6 +428,9 @@
             return preGeneratedCards[cardNumber] || allTasks; // Fallback to original if not loaded yet
         }
 
+        let currentPlayer = '';
+        let playerTasks = [];
+        let gameState = {};
         let isGameStarting = false;
         let savedGames = {}; // Store all player progress in memory
 
@@ -473,13 +468,6 @@
             currentPlayer = `${firstName} ${lastName}`;
             playerTasks = generatePlayerTasks(firstName, lastName);
             
-            // Show which card number they got
-            const hash = Math.abs((firstName + lastName).toLowerCase().split('').reduce((a, b) => {
-                a = ((a << 5) - a) + b.charCodeAt(0);
-                return a & a;
-            }, 0));
-            const cardNumber = (hash % 50) + 1;
-            
             // Try to load existing progress
             const savedState = loadGameState(currentPlayer);
             
@@ -504,7 +492,6 @@
             document.getElementById('welcomeScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
             document.getElementById('playerName').textContent = currentPlayer;
-            document.getElementById('cardNumber').textContent = `Card #${cardNumber} of 50`;
             
             createBingoBoard();
             updateProgress();
@@ -631,6 +618,10 @@
 
         // Enable start button only when both names are entered
         document.addEventListener('DOMContentLoaded', function() {
+            // Generate all 50 cards when page loads
+            preGeneratedCards.push(...generateAllCardLayouts());
+            console.log('Generated 50 unique bingo card layouts');
+            
             const firstNameInput = document.getElementById('firstName');
             const lastNameInput = document.getElementById('lastName');
             const startBtn = document.getElementById('startBtn');
