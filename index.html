@@ -308,6 +308,7 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
+            margin-right: 10px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
         }
@@ -316,6 +317,26 @@
             background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+        }
+
+        .save-btn:hover {
+            background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -465,9 +486,16 @@
                 font-size: 1.1em;
             }
 
-            .new-game-btn {
+            .new-game-btn, .save-btn {
                 padding: 10px 20px;
                 font-size: 0.95em;
+                margin-right: 0;
+                margin-top: 15px;
+                display: block;
+                width: 100%;
+                max-width: 200px;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
 
@@ -549,6 +577,7 @@
                     </div>
                 </div>
                 <button class="new-game-btn" onclick="newGame()">Reset My Progress</button>
+                <button class="save-btn" onclick="saveToDevice()">Save to Device</button>
             </div>
         </div>
     </div>
@@ -829,8 +858,155 @@
             }
         }
 
-        // Enable start button only when both names are entered
+        async function saveToDevice() {
+            try {
+                // Create a clean version of the bingo card for saving
+                const saveCard = document.createElement('div');
+                saveCard.style.cssText = `
+                    width: 800px;
+                    background: white;
+                    padding: 40px;
+                    font-family: 'Inter', 'Segoe UI', sans-serif;
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+                `;
+
+                // Add header
+                const header = document.createElement('div');
+                header.style.cssText = `
+                    text-align: center;
+                    margin-bottom: 30px;
+                    border-bottom: 3px solid #667eea;
+                    padding-bottom: 20px;
+                `;
+                header.innerHTML = `
+                    <h1 style="color: #2d3748; font-size: 2.5em; margin: 0 0 10px 0; font-weight: 700;">Customer Care Bingo Challenge</h1>
+                    <h2 style="color: #667eea; font-size: 1.5em; margin: 0; font-weight: 600;">${currentPlayer}</h2>
+                    <p style="color: #4a5568; margin: 10px 0 0 0; font-size: 1.1em;">Progress: ${Object.values(gameState).filter(s => s.completed).length}/25 Tasks Completed</p>
+                `;
+
+                // Create bingo board
+                const board = document.createElement('div');
+                board.style.cssText = `
+                    display: grid;
+                    grid-template-columns: repeat(5, 1fr);
+                    gap: 12px;
+                    margin: 30px 0;
+                `;
+
+                // Add squares
+                for (let i = 0; i < 25; i++) {
+                    const square = document.createElement('div');
+                    square.style.cssText = `
+                        background: ${gameState[i]?.completed ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'white'};
+                        border: 3px solid ${gameState[i]?.completed ? '#667eea' : '#e2e8f0'};
+                        border-radius: 16px;
+                        padding: 16px 12px;
+                        text-align: center;
+                        min-height: 160px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        position: relative;
+                        color: ${gameState[i]?.completed ? 'white' : '#2d3748'};
+                    `;
+
+                    if (i === 12) {
+                        // Free space
+                        square.innerHTML = `
+                            <div style="font-weight: 700; font-size: 1.1em; margin-bottom: 12px;">🎯 OTD (Free Space) 🎯</div>
+                        `;
+                    } else {
+                        const taskIndex = i > 12 ? i - 1 : i;
+                        const task = playerTasks[taskIndex];
+                        const state = gameState[i];
+                        
+                        // Add checkmark for completed tasks
+                        const checkmark = state?.completed ? '<div style="position: absolute; top: 8px; right: 12px; font-size: 18px; font-weight: bold;">✓</div>' : '';
+                        
+                        square.innerHTML = `
+                            ${checkmark}
+                            <div style="font-weight: 600; font-size: 0.9em; margin-bottom: 12px; line-height: 1.3; min-height: 40px; display: flex; align-items: center; justify-content: center;">${task}</div>
+                            <div style="background: ${state?.completed ? 'rgba(255,255,255,0.15)' : '#f7fafc'}; border: 2px solid ${state?.completed ? 'rgba(255,255,255,0.3)' : '#e2e8f0'}; border-radius: 12px; padding: 10px 8px; font-family: 'SF Mono', Monaco, monospace; font-weight: 600; font-size: 0.9em; letter-spacing: 1px;">${state?.number || 'Enter 10-digit number'}</div>
+                        `;
+                    }
+
+                    board.appendChild(square);
+                }
+
+                // Add footer
+                const footer = document.createElement('div');
+                footer.style.cssText = `
+                    text-align: center;
+                    margin-top: 30px;
+                    padding-top: 20px;
+                    border-top: 2px solid #e2e8f0;
+                    color: #4a5568;
+                `;
+                footer.innerHTML = `
+                    <p style="margin: 0; font-size: 0.9em;">Saved on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
+                    <p style="margin: 5px 0 0 0; font-size: 0.8em; color: #a0aec0;">Customer Care Bingo Challenge - Track your progress!</p>
+                `;
+
+                saveCard.appendChild(header);
+                saveCard.appendChild(board);
+                saveCard.appendChild(footer);
+                document.body.appendChild(saveCard);
+
+                // Use html2canvas to capture the card
+                if (typeof html2canvas !== 'undefined') {
+                    const canvas = await html2canvas(saveCard, {
+                        backgroundColor: 'white',
+                        scale: 2,
+                        useCORS: true,
+                        allowTaint: false
+                    });
+
+                    // Convert to blob and download
+                    canvas.toBlob((blob) => {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `BingoCard_${currentPlayer.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.png`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    }, 'image/png', 1.0);
+                } else {
+                    // Fallback: Open in new window for manual save
+                    const newWindow = window.open('', '_blank');
+                    newWindow.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head><title>Bingo Card - ${currentPlayer}</title></head>
+                        <body style="margin: 0; padding: 20px; background: #f0f0f0;">
+                            ${saveCard.outerHTML}
+                            <p style="text-align: center; margin-top: 20px; color: #666;">
+                                Right-click on the card above and select "Save image as..." to download
+                            </p>
+                        </body>
+                        </html>
+                    `);
+                }
+
+                document.body.removeChild(saveCard);
+
+            } catch (error) {
+                console.error('Error saving card:', error);
+                alert('Unable to save automatically. Please take a screenshot of your bingo card.');
+            }
+        }
+
+        // Load html2canvas library for better image generation
         document.addEventListener('DOMContentLoaded', function() {
+            // Try to load html2canvas for better image quality
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            script.onload = () => console.log('html2canvas loaded for high-quality image capture');
+            script.onerror = () => console.log('html2canvas not available, using fallback method');
+            document.head.appendChild(script);
+            
+            // Generate all 50 cards when page loads
             // Generate all 50 cards when page loads
             preGeneratedCards.push(...generateAllCardLayouts());
             console.log('Generated 50 unique bingo card layouts');
