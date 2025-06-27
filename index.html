@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .welcome-screen {
+            text-align: center;
+        }
+
+        .welcome-screen h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-screen p {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .name-input {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .name-input input {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+
+        .name-input input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .game-screen {
+            display: none;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-header h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .player-name {
+            color: #667eea;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bingo-square {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bingo-square:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .bingo-square.completed {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+            transform: scale(0.98);
+        }
+
+        .bingo-square.free-space {
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            color: white;
+            border-color: #ffd700;
+        }
+
+        .task-name {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .number-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1em;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .completed .number-input {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .completed .number-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .free-space .task-name {
+            font-size: 1.2em;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .progress-section {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 4%;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .new-game-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .new-game-btn:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .bingo-board {
+                gap: 5px;
+            }
+            
+            .bingo-square {
+                padding: 10px;
+                min-height: 100px;
+            }
+            
+            .task-name {
+                font-size: 0.8em;
+            }
+            
+            .number-input {
+                padding: 6px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-screen h1 {
+                font-size: 2em;
+            }
+            
+            .bingo-square {
+                padding: 8px;
+                min-height: 90px;
+            }
+            
+            .task-name {
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <h1>🎯 Personal Bingo Challenge</h1>
+            <p>Get your unique bingo card and start completing tasks! Each player gets their own personalized card with different tasks.</p>
+            
+            <div class="name-input">
+                <input type="text" id="firstName" placeholder="First Name" maxlength="20">
+                <input type="text" id="lastName" placeholder="Last Name" maxlength="20">
+                <button class="start-btn" id="startBtn" onclick="startGame()">Start My Bingo Game</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="game-header">
+                <h2>🎯 Bingo Challenge</h2>
+                <div class="player-name" id="playerName"></div>
+            </div>
+
+            <div class="bingo-board" id="bingoBoard">
+                <!-- Bingo squares will be generated here -->
+            </div>
+
+            <div class="progress-section">
+                <h3>Your Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number" id="completedCount">1</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="totalCount">25</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="progressPercent">4%</div>
+                        <div class="stat-label">Progress</div>
+                    </div>
+                </div>
+                <button class="new-game-btn" onclick="newGame()">Start New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Your specific tasks
+        const allTasks = [
+            "CCACHR Task",
+            "Trusted Translations",
+            "SRVTRF sercode",
+            "Assumptions Script",
+            "CHKGEN sercode",
+            "QRPC",
+            "FEEGEN sercode",
+            "PMI SCRIPT",
+            "Payoff Script",
+            "Setup a PTP",
+            "Escrow Waiver Script",
+            "Imaged a document to sci",
+            "SLRECA task",
+            "Recognize Someone",
+            "Outbound Dialer Call",
+            "Reissued a check",
+            "SII Script",
+            "Trnsfr for Matic or Retention offer",
+            "CCADCH",
+            "Wrike Request",
+            "Added an A3P",
+            "ESCANA Task",
+            "CCINFO used",
+            "Guided brw to doc center or forms"
+        ];
+
+        let currentPlayer = '';
+        let playerTasks = [];
+        let gameState = {};
+
+        function generatePlayerTasks(firstName, lastName) {
+            // Create a simple hash from the player's name to ensure consistency
+            const nameHash = (firstName + lastName).split('').reduce((a, b) => {
+                a = ((a << 5) - a) + b.charCodeAt(0);
+                return a & a;
+            }, 0);
+            
+            // Use the hash to seed task selection
+            const shuffledTasks = [...allTasks];
+            const seed = Math.abs(nameHash);
+            
+            // Fisher-Yates shuffle with seeded randomness
+            for (let i = shuffledTasks.length - 1; i > 0; i--) {
+                const j = Math.floor(((seed + i) * 9301 + 49297) % 233280 / 233280) * (i + 1);
+                [shuffledTasks[i], shuffledTasks[j]] = [shuffledTasks[j], shuffledTasks[i]];
+            }
+            
+            return shuffledTasks; // Return all 24 tasks
+        }
+
+        let isGameStarting = false;
+
+        function startGame() {
+            if (isGameStarting) {
+                return;
+            }
+            isGameStarting = true;
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            
+            if (!firstName || !lastName) {
+                alert('Please enter both your first and last name.');
+                isGameStarting = false;
+                return;
+            }
+            
+            currentPlayer = `${firstName} ${lastName}`;
+            playerTasks = generatePlayerTasks(firstName, lastName);
+            
+            // Initialize game state for all 25 squares
+            gameState = {};
+            for (let i = 0; i < 25; i++) {
+                gameState[i] = { completed: false, number: '' };
+            }
+            // Free space is always completed
+            gameState[12] = { completed: true, number: 'FREE' };
+            
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            document.getElementById('playerName').textContent = currentPlayer;
+            
+            createBingoBoard();
+            updateProgress();
+            
+            setTimeout(() => {
+                isGameStarting = false;
+            }, 500);
+        }
+
+        function createBingoBoard() {
+            const board = document.getElementById('bingoBoard');
+            board.innerHTML = '';
+            
+            for (let i = 0; i < 25; i++) {
+                const square = document.createElement('div');
+                square.className = 'bingo-square';
+                square.setAttribute('data-index', i);
+                
+                if (i === 12) {
+                    // Free space (center) - OTD
+                    square.className += ' free-space completed';
+                    square.innerHTML = `
+                        <div class="task-name">🎯 OTD (Free Space) 🎯</div>
+                    `;
+                } else {
+                    const taskIndex = i > 12 ? i - 1 : i; // Adjust for free space
+                    const task = playerTasks[taskIndex];
+                    const state = gameState[i];
+                    
+                    if (state && state.completed) {
+                        square.className += ' completed';
+                    }
+                    
+                    const numberValue = state ? state.number : '';
+                    
+                    square.innerHTML = `
+                        <div class="task-name">${task}</div>
+                        <input type="text" 
+                               class="number-input" 
+                               placeholder="Enter 10-digit number"
+                               maxlength="10"
+                               value="${numberValue}"
+                               oninput="handleNumberInput(${i}, this.value)"
+                               pattern="[0-9]*"
+                               inputmode="numeric">
+                    `;
+                }
+                
+                board.appendChild(square);
+            }
+        }
+
+        function handleNumberInput(index, value) {
+            // Only allow digits
+            value = value.replace(/\D/g, '');
+            
+            // Update the input field
+            event.target.value = value;
+            
+            // Make sure game state exists for this index
+            if (!gameState[index]) {
+                gameState[index] = { completed: false, number: '' };
+            }
+            
+            // Update game state
+            gameState[index].number = value;
+            
+            // Check if task is completed (10 digits entered)
+            const wasCompleted = gameState[index].completed;
+            gameState[index].completed = value.length === 10;
+            
+            // Update square appearance if completion status changed
+            if (wasCompleted !== gameState[index].completed) {
+                const square = document.querySelector(`[data-index="${index}"]`);
+                if (gameState[index].completed) {
+                    square.classList.add('completed');
+                } else {
+                    square.classList.remove('completed');
+                }
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const completed = Object.values(gameState).filter(state => state.completed).length;
+            const total = 25;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('progressPercent').textContent = `${percentage}%`;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+            
+            // Check for bingo (all tasks completed)
+            if (completed === total) {
+                setTimeout(() => {
+                    alert('🎉 BINGO! Congratulations on completing all tasks!');
+                }, 500);
+            }
+        }
+
+        function newGame() {
+            isGameStarting = false;
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('welcomeScreen').style.display = 'block';
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            
+            const startBtn = document.getElementById('startBtn');
+            if (startBtn) {
+                startBtn.disabled = true;
+            }
+        }
+
+        // Enable start button only when both names are entered
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            const startBtn = document.getElementById('startBtn');
+            
+            function checkInputs() {
+                const firstName = firstNameInput.value.trim();
+                const lastName = lastNameInput.value.trim();
+                startBtn.disabled = !firstName || !lastName;
+            }
+            
+            firstNameInput.addEventListener('input', checkInputs);
+            lastNameInput.addEventListener('input', checkInputs);
+            
+            // Initial state
+            startBtn.disabled = true;
+            checkInputs();
+        });
+    </script>
+</body>
+</html>
