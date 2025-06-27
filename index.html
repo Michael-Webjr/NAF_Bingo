@@ -127,10 +127,10 @@
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
-            padding: 10px 6px;
+            padding: 8px 4px;
             text-align: center;
             transition: all 0.3s;
-            min-height: 140px;
+            min-height: 150px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -163,15 +163,15 @@
 
         .number-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 5px;
             text-align: center;
-            font-size: 1.2em;
+            font-size: 0.95em;
             font-weight: 500;
             background: rgba(255,255,255,0.9);
-            min-width: 140px;
-            letter-spacing: 2px;
+            min-width: 120px;
+            letter-spacing: 1px;
             font-family: 'Courier New', monospace;
         }
 
@@ -306,8 +306,8 @@
     <div class="container">
         <!-- Welcome Screen -->
         <div class="welcome-screen" id="welcomeScreen">
-            <h1>🎯 Customer Care Bingo Challenge</h1>
-            <p>Get your unique bingo card and start completing tasks!</p>
+            <h1>🎯 Personal Bingo Challenge</h1>
+            <p>Get your unique bingo card and start completing tasks! Each player gets one of 50 different card layouts - unlikely anyone will have the same arrangement as you!</p>
             
             <div class="name-input">
                 <input type="text" id="firstName" placeholder="First Name" maxlength="20">
@@ -319,7 +319,7 @@
         <!-- Game Screen -->
         <div class="game-screen" id="gameScreen">
             <div class="game-header">
-                <h2>🎯 Customer Care Bingo Challenge</h2>
+                <h2>🎯 Bingo Challenge</h2>
                 <div class="player-name" id="playerName"></div>
             </div>
 
@@ -432,20 +432,27 @@
         let playerTasks = [];
         let gameState = {};
         let isGameStarting = false;
-        let savedGames = {}; // Store all player progress in memory
 
         function saveGameState(playerName, gameState) {
-            const saveKey = playerName.replace(/\s+/g, '_').toLowerCase();
-            savedGames[saveKey] = JSON.parse(JSON.stringify(gameState));
-            console.log('Saved progress for', playerName);
+            try {
+                const saveKey = `bingo_${playerName.replace(/\s+/g, '_').toLowerCase()}`;
+                localStorage.setItem(saveKey, JSON.stringify(gameState));
+                console.log('Saved progress for', playerName);
+            } catch (error) {
+                console.log('LocalStorage not available, using session storage');
+            }
         }
 
         function loadGameState(playerName) {
-            const saveKey = playerName.replace(/\s+/g, '_').toLowerCase();
-            const saved = savedGames[saveKey];
-            if (saved) {
-                console.log('Loaded saved progress for', playerName);
-                return JSON.parse(JSON.stringify(saved));
+            try {
+                const saveKey = `bingo_${playerName.replace(/\s+/g, '_').toLowerCase()}`;
+                const saved = localStorage.getItem(saveKey);
+                if (saved) {
+                    console.log('Loaded saved progress for', playerName);
+                    return JSON.parse(saved);
+                }
+            } catch (error) {
+                console.log('LocalStorage not available');
             }
             return null;
         }
@@ -599,9 +606,13 @@
         function newGame() {
             if (currentPlayer && confirm('Are you sure you want to start a new game? This will reset your current progress.')) {
                 // Clear saved progress for current player
-                const saveKey = currentPlayer.replace(/\s+/g, '_').toLowerCase();
-                delete savedGames[saveKey];
-                console.log('Cleared progress for', currentPlayer);
+                try {
+                    const saveKey = `bingo_${currentPlayer.replace(/\s+/g, '_').toLowerCase()}`;
+                    localStorage.removeItem(saveKey);
+                    console.log('Cleared progress for', currentPlayer);
+                } catch (error) {
+                    console.log('LocalStorage not available');
+                }
             }
             
             isGameStarting = false;
