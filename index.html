@@ -68,7 +68,7 @@
                     </div>
                 </div>
 
-                <!-- Right Pattern Examples (duplicate for symmetry) -->
+                <!-- Right Pattern Examples -->
                 <div class="bingo-patterns">
                     <div class="patterns-title">More Patterns</div>
                     
@@ -444,10 +444,10 @@
             }
             isGameStarting = true;
             
-            playerTasks = generatePlayerTasks(); // No longer needs name parameters
+            playerTasks = generatePlayerTasks();
             
             // Try to load existing progress for this device
-            const savedState = loadGameState(); // No longer needs name parameter
+            const savedState = loadGameState();
             
             if (savedState) {
                 // Use saved progress
@@ -816,6 +816,10 @@
             display: none;
         }
 
+        .game-screen {
+            display: none;
+        }
+
         .welcome-screen h1 {
             color: #2d3748;
             margin-bottom: 16px;
@@ -878,10 +882,6 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
-        }
-
-        .game-screen {
-            display: none;
         }
 
         .rules-container {
@@ -997,12 +997,17 @@
             margin: 0 auto;
         }
 
-        .bingo-patterns {
+        .game-screen .bingo-patterns {
             flex: 0 0 200px;
             background: #f8f9ff;
             border-radius: 16px;
             padding: 20px;
             border: 2px solid #e2e8f0;
+        }
+
+        .welcome-screen .bingo-patterns,
+        .rules-screen .bingo-patterns {
+            display: none;
         }
 
         .patterns-title {
@@ -1304,7 +1309,7 @@
                 gap: 20px;
             }
 
-            .bingo-patterns {
+            .game-screen .bingo-patterns {
                 flex: none;
                 order: -1;
                 padding: 16px;
@@ -1704,4 +1709,6 @@
                     </div>
 
                     <div class="pattern-item">
-                        <div class="pattern-name">X Pattern</div
+                        <div class="pattern-name">X Pattern</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
