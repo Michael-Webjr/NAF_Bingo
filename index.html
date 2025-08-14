@@ -1,4 +1,186 @@
-<div class="pattern-item">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Care Bingo Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <h1>Customer Care Bingo Challenge</h1>
+            <p>Enter any name to start playing! Your unique bingo card and progress are automatically saved to this device.</p>
+            
+            <div class="name-input">
+                <input type="text" id="firstName" placeholder="First Name" maxlength="20">
+                <input type="text" id="lastName" placeholder="Last Name" maxlength="20">
+                <button class="start-btn" id="startBtn" onclick="showRules()">Start My Bingo Game</button>
+            </div>
+        </div>
+
+        <!-- Ground Rules Screen -->
+        <div class="rules-screen" id="rulesScreen">
+            <h1>Customer Care Bingo Challenge</h1>
+            <div class="rules-container">
+                <h2>📋 Ground Rules & Guidelines</h2>
+                
+                <div class="rule-item">
+                    <input type="checkbox" class="rule-checkbox" id="rule1">
+                    <div class="rule-text">
+                        <strong>Multiple Use Allowed:</strong> You can use a single loan number for multiple bingo squares if the tasks apply to that same loan.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <input type="checkbox" class="rule-checkbox" id="rule2">
+                    <div class="rule-text">
+                        <strong>Deadline Submission:</strong> After the challenge deadline, be sure to save your card to device and email your completed bingo card to <strong>funcommittee@nafinc.com</strong>.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <input type="checkbox" class="rule-checkbox" id="rule3">
+                    <div class="rule-text">
+                        <strong>Valid Completion:</strong> Each task must be genuinely completed with accurate 10-digit loan numbers. Random numbers will not be accepted.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <input type="checkbox" class="rule-checkbox" id="rule4">
+                    <div class="rule-text">
+                        <strong>Progress Saving:</strong> Your progress automatically saves to this device. Use the same device to maintain your progress throughout the challenge.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <input type="checkbox" class="rule-checkbox" id="rule5">
+                    <div class="rule-text">
+                        <strong>Winning Patterns:</strong> To win, complete any valid bingo pattern: 5 in a row (horizontal, vertical, diagonal), full card, corners, or X pattern.
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <input type="checkbox" class="rule-checkbox" id="rule6">
+                    <div class="rule-text">
+                        <strong>Fair Play:</strong> This challenge is for fun and team building. Be honest, help your colleagues, and enjoy the experience!
+                    </div>
+                </div>
+
+                <div class="rules-buttons">
+                    <button class="back-btn" onclick="goBackToWelcome()">← Back</button>
+                    <button class="continue-btn" id="continueBtn" onclick="startGame()" disabled>Continue to Bingo Card →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="game-header">
+                <h2>🎯 Bingo Challenge</h2>
+                <div class="player-name" id="playerName"></div>
+            </div>
+
+            <div class="game-container">
+                <!-- Left Pattern Examples -->
+                <div class="bingo-patterns">
+                    <div class="patterns-title">Winning Patterns</div>
+                    
+                    <div class="pattern-item">
+                        <div class="pattern-name">5 in a Row</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
+                        <div class="pattern-name">Diagonal</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell free"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
+                        <div class="pattern-name">Four Corners</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell free"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
                         <div class="pattern-name">X Pattern</div>
                         <div class="pattern-grid">
                             <div class="pattern-cell filled"></div>
@@ -254,1461 +436,7 @@
         </div>
     </div>
 
-    <script>
-        // Your specific tasks
-        const allTasks = [
-            "CCACHR Task",
-            "Trusted Translations",
-            "SRVTRF sercode",
-            "Assumptions Script",
-            "CHKGEN sercode",
-            "QRPC",
-            "FEEGEN sercode",
-            "PMI SCRIPT",
-            "Payoff Script",
-            "Setup a PTP",
-            "Escrow Waiver Script",
-            "Imaged a document to sci",
-            "SLRECA task",
-            "Recognize Someone",
-            "Outbound Dialer Call",
-            "Reissued a check",
-            "SII Script",
-            "Trnsfr for Matic or Retention offer",
-            "CCADCH",
-            "Wrike Request",
-            "Added an A3P",
-            "ESCANA Task",
-            "CCINFO used",
-            "Guided brw to doc center or forms"
-        ];
-
-        // Pre-generate 50 different card layouts
-        const preGeneratedCards = [];
-        
-        function generateAllCardLayouts() {
-            const cards = [];
-            
-            // Create 50 different shuffled arrangements
-            for (let cardNum = 0; cardNum < 50; cardNum++) {
-                const shuffled = [...allTasks];
-                
-                // Use different seed for each card
-                let seed = (cardNum + 1) * 12345;
-                
-                // Fisher-Yates shuffle with different seed for each card
-                for (let i = shuffled.length - 1; i > 0; i--) {
-                    seed = (seed * 9301 + 49297) % 233280;
-                    const random = (Math.sin(seed) * 10000) - Math.floor(Math.sin(seed) * 10000);
-                    const j = Math.floor(Math.abs(random) * (i + 1));
-                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-                }
-                
-                cards.push(shuffled);
-            }
-            
-            return cards;
-        }
-
-        function getDeviceId() {
-            // Try to get existing device ID from localStorage
-            let deviceId = localStorage.getItem('bingo_device_id');
-            
-            if (!deviceId) {
-                // Create a unique device ID based on browser fingerprint
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                ctx.textBaseline = 'top';
-                ctx.font = '14px Arial';
-                ctx.fillText('Device fingerprint', 2, 2);
-                
-                const fingerprint = canvas.toDataURL() + 
-                                 navigator.userAgent + 
-                                 screen.width + 
-                                 screen.height + 
-                                 new Date().getTimezoneOffset();
-                
-                // Create hash from fingerprint
-                let hash = 0;
-                for (let i = 0; i < fingerprint.length; i++) {
-                    const char = fingerprint.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                
-                deviceId = 'device_' + Math.abs(hash);
-                localStorage.setItem('bingo_device_id', deviceId);
-            }
-            
-            return deviceId;
-        }
-
-        function generatePlayerTasks() {
-            // Use device ID instead of name to determine card
-            const deviceId = getDeviceId();
-            
-            // Create hash from device ID to determine which of the 50 cards they get
-            let hash = 0;
-            for (let i = 0; i < deviceId.length; i++) {
-                const char = deviceId.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
-            }
-            
-            // Make sure hash is positive and map it to 0-49 range
-            hash = Math.abs(hash);
-            const cardNumber = hash % 50;
-            
-            console.log(`Device assigned card #${cardNumber + 1} out of 50`);
-            
-            // Return the pre-generated card for this device
-            return preGeneratedCards[cardNumber] || allTasks;
-        }
-
-        let currentPlayer = '';
-        let playerTasks = [];
-        let gameState = {};
-        let isGameStarting = false;
-
-        function saveGameState(playerName, gameState) {
-            try {
-                const deviceId = getDeviceId();
-                const saveKey = `bingo_progress_${deviceId}`;
-                const saveData = {
-                    gameState: gameState,
-                    lastPlayerName: playerName,
-                    lastSaved: new Date().toISOString()
-                };
-                localStorage.setItem(saveKey, JSON.stringify(saveData));
-                console.log('Saved progress for device:', deviceId);
-            } catch (error) {
-                console.log('LocalStorage not available, using session storage');
-            }
-        }
-
-        function loadGameState() {
-            try {
-                const deviceId = getDeviceId();
-                const saveKey = `bingo_progress_${deviceId}`;
-                const saved = localStorage.getItem(saveKey);
-                if (saved) {
-                    const saveData = JSON.parse(saved);
-                    console.log('Loaded saved progress for device:', deviceId);
-                    return saveData.gameState;
-                }
-            } catch (error) {
-                console.log('LocalStorage not available');
-            }
-            return null;
-        }
-
-        function showRules() {
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            
-            if (!firstName || !lastName) {
-                alert('Please enter both your first and last name.');
-                return;
-            }
-            
-            // Store the name for later use
-            currentPlayer = `${firstName} ${lastName}`;
-            
-            // Show rules screen
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('rulesScreen').style.display = 'block';
-        }
-
-        function goBackToWelcome() {
-            document.getElementById('rulesScreen').style.display = 'none';
-            document.getElementById('welcomeScreen').style.display = 'block';
-        }
-
-        function checkRulesAgreement() {
-            const checkboxes = document.querySelectorAll('.rule-checkbox');
-            const continueBtn = document.getElementById('continueBtn');
-            
-            let allChecked = true;
-            checkboxes.forEach(checkbox => {
-                if (!checkbox.checked) {
-                    allChecked = false;
-                }
-            });
-            
-            continueBtn.disabled = !allChecked;
-        }
-
-        function startGame() {
-            if (isGameStarting) {
-                return;
-            }
-            isGameStarting = true;
-            
-            playerTasks = generatePlayerTasks();
-            
-            // Try to load existing progress for this device
-            const savedState = loadGameState();
-            
-            if (savedState) {
-                // Use saved progress
-                gameState = savedState;
-                console.log('Loaded saved progress for', currentPlayer);
-            } else {
-                // Initialize new game state for all 25 squares
-                gameState = {};
-                for (let i = 0; i < 25; i++) {
-                    gameState[i] = { completed: false, number: '' };
-                }
-                // Free space is always completed
-                gameState[12] = { completed: true, number: 'FREE' };
-                
-                // Save the initial state
-                saveGameState(currentPlayer, gameState);
-                console.log('Created new game for', currentPlayer);
-            }
-            
-            document.getElementById('rulesScreen').style.display = 'none';
-            document.getElementById('gameScreen').style.display = 'block';
-            document.getElementById('playerName').textContent = currentPlayer;
-            
-            createBingoBoard();
-            updateProgress();
-            
-            setTimeout(() => {
-                isGameStarting = false;
-            }, 500);
-        }
-
-        function createBingoBoard() {
-            const board = document.getElementById('bingoBoard');
-            board.innerHTML = '';
-            
-            for (let i = 0; i < 25; i++) {
-                const square = document.createElement('div');
-                square.className = 'bingo-square';
-                square.setAttribute('data-index', i);
-                
-                if (i === 12) {
-                    // Free space (center) - OTD
-                    square.className += ' free-space completed';
-                    square.innerHTML = `
-                        <div class="task-name">🎯 OTD (Free Space) 🎯</div>
-                    `;
-                } else {
-                    const taskIndex = i > 12 ? i - 1 : i; // Adjust for free space
-                    const task = playerTasks[taskIndex];
-                    const state = gameState[i];
-                    
-                    if (state && state.completed) {
-                        square.className += ' completed';
-                    }
-                    
-                    const numberValue = state ? state.number : '';
-                    
-                    square.innerHTML = `
-                        <div class="task-name">${task}</div>
-                        <input type="text" 
-                               class="number-input" 
-                               placeholder="Enter 10-digit number"
-                               maxlength="10"
-                               value="${numberValue}"
-                               oninput="handleNumberInput(${i}, this.value)"
-                               pattern="[0-9]*"
-                               inputmode="numeric">
-                    `;
-                }
-                
-                board.appendChild(square);
-            }
-        }
-
-        function handleNumberInput(index, value) {
-            // Only allow digits
-            value = value.replace(/\D/g, '');
-            
-            // Update the input field
-            event.target.value = value;
-            
-            // Make sure game state exists for this index
-            if (!gameState[index]) {
-                gameState[index] = { completed: false, number: '' };
-            }
-            
-            // Update game state
-            gameState[index].number = value;
-            
-            // Check if task is completed (10 digits entered)
-            const wasCompleted = gameState[index].completed;
-            gameState[index].completed = value.length === 10;
-            
-            // Save progress immediately
-            saveGameState(currentPlayer, gameState);
-            
-            // Update square appearance if completion status changed
-            if (wasCompleted !== gameState[index].completed) {
-                const square = document.querySelector(`[data-index="${index}"]`);
-                if (gameState[index].completed) {
-                    square.classList.add('completed');
-                } else {
-                    square.classList.remove('completed');
-                }
-                updateProgress();
-            }
-        }
-
-        function updateProgress() {
-            const completed = Object.values(gameState).filter(state => state.completed).length;
-            const total = 25;
-            const percentage = Math.round((completed / total) * 100);
-            
-            document.getElementById('completedCount').textContent = completed;
-            document.getElementById('totalCount').textContent = total;
-            document.getElementById('progressPercent').textContent = `${percentage}%`;
-            document.getElementById('progressFill').style.width = `${percentage}%`;
-            
-            // Check for bingo (all tasks completed)
-            if (completed === total) {
-                setTimeout(() => {
-                    alert('🎉 BINGO! Congratulations on completing all tasks!');
-                }, 500);
-            }
-        }
-
-        function newGame() {
-            if (confirm('Are you sure you want to reset your bingo card? This will clear all your progress on this device.')) {
-                // Clear saved progress for this device
-                try {
-                    const deviceId = getDeviceId();
-                    const saveKey = `bingo_progress_${deviceId}`;
-                    localStorage.removeItem(saveKey);
-                    console.log('Cleared progress for device:', deviceId);
-                } catch (error) {
-                    console.log('LocalStorage not available');
-                }
-            }
-            
-            isGameStarting = false;
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('welcomeScreen').style.display = 'block';
-            document.getElementById('firstName').value = '';
-            document.getElementById('lastName').value = '';
-            
-            const startBtn = document.getElementById('startBtn');
-            if (startBtn) {
-                startBtn.disabled = true;
-            }
-        }
-
-        async function saveToDevice() {
-            try {
-                // Create a clean version of the bingo card for saving
-                const saveCard = document.createElement('div');
-                saveCard.style.cssText = `
-                    width: 800px;
-                    background: white;
-                    padding: 40px;
-                    font-family: 'Inter', 'Segoe UI', sans-serif;
-                    position: absolute;
-                    top: -9999px;
-                    left: -9999px;
-                `;
-
-                // Add header
-                const header = document.createElement('div');
-                header.style.cssText = `
-                    text-align: center;
-                    margin-bottom: 30px;
-                    border-bottom: 3px solid #667eea;
-                    padding-bottom: 20px;
-                `;
-                header.innerHTML = `
-                    <h1 style="color: #2d3748; font-size: 2.5em; margin: 0 0 10px 0; font-weight: 700;">Customer Care Bingo Challenge</h1>
-                    <h2 style="color: #667eea; font-size: 1.5em; margin: 0; font-weight: 600;">${currentPlayer}</h2>
-                    <p style="color: #4a5568; margin: 10px 0 0 0; font-size: 1.1em;">Progress: ${Object.values(gameState).filter(s => s.completed).length}/25 Tasks Completed</p>
-                `;
-
-                // Create bingo board
-                const board = document.createElement('div');
-                board.style.cssText = `
-                    display: grid;
-                    grid-template-columns: repeat(5, 1fr);
-                    gap: 12px;
-                    margin: 30px 0;
-                `;
-
-                // Add squares
-                for (let i = 0; i < 25; i++) {
-                    const square = document.createElement('div');
-                    square.style.cssText = `
-                        background: ${gameState[i]?.completed ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'white'};
-                        border: 3px solid ${gameState[i]?.completed ? '#667eea' : '#e2e8f0'};
-                        border-radius: 16px;
-                        padding: 16px 12px;
-                        text-align: center;
-                        min-height: 160px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        position: relative;
-                        color: ${gameState[i]?.completed ? 'white' : '#2d3748'};
-                    `;
-
-                    if (i === 12) {
-                        // Free space
-                        square.innerHTML = `
-                            <div style="font-weight: 700; font-size: 1.1em; margin-bottom: 12px;">🎯 OTD (Free Space) 🎯</div>
-                        `;
-                    } else {
-                        const taskIndex = i > 12 ? i - 1 : i;
-                        const task = playerTasks[taskIndex];
-                        const state = gameState[i];
-                        
-                        // Add checkmark for completed tasks
-                        const checkmark = state?.completed ? '<div style="position: absolute; top: 8px; right: 12px; font-size: 18px; font-weight: bold;">✓</div>' : '';
-                        
-                        square.innerHTML = `
-                            ${checkmark}
-                            <div style="font-weight: 600; font-size: 0.9em; margin-bottom: 12px; line-height: 1.3; min-height: 40px; display: flex; align-items: center; justify-content: center;">${task}</div>
-                            <div style="background: ${state?.completed ? 'rgba(255,255,255,0.15)' : '#f7fafc'}; border: 2px solid ${state?.completed ? 'rgba(255,255,255,0.3)' : '#e2e8f0'}; border-radius: 12px; padding: 10px 8px; font-family: 'SF Mono', Monaco, monospace; font-weight: 600; font-size: 0.9em; letter-spacing: 1px;">${state?.number || 'Enter 10-digit number'}</div>
-                        `;
-                    }
-
-                    board.appendChild(square);
-                }
-
-                // Add footer
-                const footer = document.createElement('div');
-                footer.style.cssText = `
-                    text-align: center;
-                    margin-top: 30px;
-                    padding-top: 20px;
-                    border-top: 2px solid #e2e8f0;
-                    color: #4a5568;
-                `;
-                footer.innerHTML = `
-                    <p style="margin: 0; font-size: 0.9em;">Saved on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
-                    <p style="margin: 5px 0 0 0; font-size: 0.8em; color: #a0aec0;">Customer Care Bingo Challenge - Track your progress!</p>
-                `;
-
-                saveCard.appendChild(header);
-                saveCard.appendChild(board);
-                saveCard.appendChild(footer);
-                document.body.appendChild(saveCard);
-
-                // Use html2canvas to capture the card
-                if (typeof html2canvas !== 'undefined') {
-                    const canvas = await html2canvas(saveCard, {
-                        backgroundColor: 'white',
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: false
-                    });
-
-                    // Convert to blob and download
-                    canvas.toBlob((blob) => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `BingoCard_${currentPlayer.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.png`;
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    }, 'image/png', 1.0);
-                } else {
-                    // Fallback: Open in new window for manual save
-                    const newWindow = window.open('', '_blank');
-                    newWindow.document.write(`
-                        <!DOCTYPE html>
-                        <html>
-                        <head><title>Bingo Card - ${currentPlayer}</title></head>
-                        <body style="margin: 0; padding: 20px; background: #f0f0f0;">
-                            ${saveCard.outerHTML}
-                            <p style="text-align: center; margin-top: 20px; color: #666;">
-                                Right-click on the card above and select "Save image as..." to download
-                            </p>
-                        </body>
-                        </html>
-                    `);
-                }
-
-                document.body.removeChild(saveCard);
-
-            } catch (error) {
-                console.error('Error saving card:', error);
-                alert('Unable to save automatically. Please take a screenshot of your bingo card.');
-            }
-        }
-
-        // Load html2canvas library for better image generation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Try to load html2canvas for better image quality
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-            script.onload = () => console.log('html2canvas loaded for high-quality image capture');
-            script.onerror = () => console.log('html2canvas not available, using fallback method');
-            document.head.appendChild(script);
-            
-            // Generate all 50 cards when page loads
-            preGeneratedCards.push(...generateAllCardLayouts());
-            console.log('Generated 50 unique bingo card layouts');
-            
-            const firstNameInput = document.getElementById('firstName');
-            const lastNameInput = document.getElementById('lastName');
-            const startBtn = document.getElementById('startBtn');
-            
-            function checkInputs() {
-                const firstName = firstNameInput.value.trim();
-                const lastName = lastNameInput.value.trim();
-                startBtn.disabled = !firstName || !lastName;
-            }
-            
-            firstNameInput.addEventListener('input', checkInputs);
-            lastNameInput.addEventListener('input', checkInputs);
-            
-            // Add event listeners for rule checkboxes
-            const checkboxes = document.querySelectorAll('.rule-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', checkRulesAgreement);
-            });
-            
-            // Initial state
-            startBtn.disabled = true;
-            checkInputs();
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
 </body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bingo Game</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            padding: 40px;
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .welcome-screen, .rules-screen {
-            text-align: center;
-        }
-
-        .rules-screen {
-            display: none;
-        }
-
-        .game-screen {
-            display: none;
-        }
-
-        .welcome-screen h1 {
-            color: #2d3748;
-            margin-bottom: 16px;
-            font-size: 2.75em;
-            font-weight: 700;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-        }
-
-        .welcome-screen p {
-            color: #4a5568;
-            margin-bottom: 32px;
-            font-size: 1.125em;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .name-input {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .name-input input {
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1.1em;
-            transition: border-color 0.3s;
-        }
-
-        .name-input input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
-        }
-
-        .start-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .start-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-        }
-
-        .start-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .rules-container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: left;
-            background: #f8f9ff;
-            border-radius: 20px;
-            padding: 32px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .rules-container h2 {
-            color: #2d3748;
-            font-size: 2em;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 24px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .rule-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: white;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .rule-item:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
-        }
-
-        .rule-checkbox {
-            margin-right: 16px;
-            margin-top: 4px;
-            transform: scale(1.2);
-            accent-color: #667eea;
-        }
-
-        .rule-text {
-            flex: 1;
-            color: #2d3748;
-            font-size: 1.05em;
-            line-height: 1.5;
-        }
-
-        .rule-text strong {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .rules-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 32px;
-        }
-
-        .back-btn {
-            background: #e2e8f0;
-            color: #4a5568;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background: #cbd5e0;
-            transform: translateY(-2px);
-        }
-
-        .continue-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-
-        .continue-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .continue-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .game-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .game-screen .bingo-patterns {
-            flex: 0 0 200px;
-            background: #f8f9ff;
-            border-radius: 16px;
-            padding: 20px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .welcome-screen .bingo-patterns,
-        .rules-screen .bingo-patterns {
-            display: none;
-        }
-
-        .patterns-title {
-            color: #2d3748;
-            font-size: 1.1em;
-            font-weight: 700;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .pattern-item {
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .pattern-name {
-            color: #4a5568;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .pattern-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 2px;
-            max-width: 80px;
-            margin: 0 auto;
-        }
-
-        .pattern-cell {
-            width: 14px;
-            height: 14px;
-            border-radius: 2px;
-            border: 1px solid #cbd5e0;
-        }
-
-        .pattern-cell.filled {
-            background: #667eea;
-        }
-
-        .pattern-cell.free {
-            background: #ed8936;
-        }
-
-        .bingo-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .game-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .game-header h2 {
-            color: #2d3748;
-            margin-bottom: 8px;
-            font-weight: 700;
-            font-size: 2em;
-        }
-
-        .player-name {
-            color: #667eea;
-            font-size: 1.25em;
-            font-weight: 600;
-        }
-
-        .bingo-board {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f8f9ff;
-            border-radius: 20px;
-            box-shadow: inset 0 2px 10px rgba(102, 126, 234, 0.08);
-        }
-
-        .bingo-square {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 16px 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            min-height: 160px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bingo-square:hover {
-            border-color: #667eea;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .bingo-square.completed {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .bingo-square.completed::before {
-            content: '✓';
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            color: rgba(255,255,255,0.9);
-        }
-
-        .bingo-square.free-space {
-            background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
-            color: white;
-            border-color: #ed8936;
-            box-shadow: 0 8px 25px rgba(237, 137, 54, 0.3);
-        }
-
-        .free-space .task-name {
-            font-size: 1.1em;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            font-weight: 700;
-        }
-
-        .task-name {
-            font-weight: 600;
-            font-size: 0.875em;
-            margin-bottom: 12px;
-            line-height: 1.3;
-            color: #2d3748;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .number-input {
-            width: 100%;
-            padding: 10px 8px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 0.875em;
-            font-weight: 600;
-            background: #f7fafc;
-            letter-spacing: 1px;
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-            transition: all 0.2s ease;
-            color: #4a5568;
-        }
-
-        .number-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .number-input::placeholder {
-            color: #a0aec0;
-            font-size: 0.8em;
-        }
-
-        .completed .number-input {
-            background: rgba(255,255,255,0.15);
-            border-color: rgba(255,255,255,0.3);
-            color: white;
-        }
-
-        .completed .number-input::placeholder {
-            color: rgba(255,255,255,0.8);
-        }
-
-        .completed .task-name {
-            color: white;
-        }
-
-        .progress-section {
-            margin-top: 40px;
-            text-align: center;
-            padding: 32px;
-            background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .progress-section h3 {
-            color: #2d3748;
-            font-weight: 700;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .progress-bar {
-            background: #e2e8f0;
-            border-radius: 12px;
-            height: 24px;
-            margin: 20px 0;
-            overflow: hidden;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
-        }
-
-        .progress-fill {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            border-radius: 12px;
-            transition: width 0.6s ease;
-            width: 4%;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 24px;
-            gap: 20px;
-        }
-
-        .stat {
-            text-align: center;
-            flex: 1;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: 800;
-            color: #667eea;
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            color: #4a5568;
-            font-size: 0.9em;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .new-game-btn {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            margin-right: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
-        }
-
-        .new-game-btn:hover {
-            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
-        }
-
-        .save-btn {
-            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
-        }
-
-        .save-btn:hover {
-            background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-                margin: 8px;
-                border-radius: 20px;
-            }
-
-            .game-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .game-screen .bingo-patterns {
-                flex: none;
-                order: -1;
-                padding: 16px;
-            }
-
-            .patterns-title {
-                font-size: 1em;
-            }
-
-            .pattern-item {
-                display: inline-block;
-                margin: 0 8px 12px 0;
-                vertical-align: top;
-            }
-
-            .pattern-grid {
-                max-width: 60px;
-            }
-
-            .pattern-cell {
-                width: 10px;
-                height: 10px;
-            }
-
-            .rules-container {
-                padding: 24px 20px;
-                margin: 0 16px;
-            }
-
-            .rules-buttons {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .back-btn, .continue-btn {
-                width: 100%;
-            }
-            
-            .bingo-board {
-                gap: 10px;
-                padding: 16px;
-                max-width: 100%;
-                margin: 0 auto;
-            }
-            
-            .bingo-square {
-                padding: 12px 8px;
-                min-height: 160px;
-                border-radius: 14px;
-            }
-            
-            .task-name {
-                font-size: 0.8em;
-                min-height: 45px;
-                line-height: 1.2;
-                margin-bottom: 8px;
-            }
-            
-            .number-input {
-                padding: 10px 8px;
-                font-size: 0.85em;
-                border-radius: 10px;
-                letter-spacing: 0.5px;
-            }
-
-            .progress-section {
-                padding: 20px 16px;
-                margin-top: 24px;
-            }
-
-            .progress-section h3 {
-                font-size: 1.3em;
-            }
-
-            .stats {
-                gap: 16px;
-                margin-top: 20px;
-            }
-
-            .stat-number {
-                font-size: 2.2em;
-            }
-
-            .welcome-screen h1 {
-                font-size: 2.4em;
-                margin-bottom: 16px;
-            }
-
-            .welcome-screen p {
-                font-size: 1.1em;
-                margin-bottom: 28px;
-                padding: 0 8px;
-            }
-
-            .game-header {
-                margin-bottom: 24px;
-            }
-
-            .game-header h2 {
-                font-size: 1.8em;
-            }
-
-            .player-name {
-                font-size: 1.2em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 16px 12px;
-                margin: 6px;
-            }
-
-            .welcome-screen h1 {
-                font-size: 2.1em;
-                line-height: 1.1;
-            }
-
-            .welcome-screen p {
-                font-size: 1.05em;
-                padding: 0 4px;
-            }
-            
-            .bingo-board {
-                gap: 8px;
-                padding: 12px;
-            }
-            
-            .bingo-square {
-                padding: 10px 6px;
-                min-height: 150px;
-                border-radius: 12px;
-            }
-            
-            .task-name {
-                font-size: 0.75em;
-                min-height: 42px;
-                line-height: 1.2;
-                margin-bottom: 6px;
-            }
-            
-            .number-input {
-                padding: 8px 6px;
-                font-size: 0.8em;
-                border-radius: 8px;
-                letter-spacing: 0.3px;
-            }
-
-            .progress-section {
-                padding: 16px 12px;
-                margin-top: 20px;
-            }
-
-            .progress-section h3 {
-                font-size: 1.2em;
-            }
-
-            .stats {
-                gap: 12px;
-                margin-top: 16px;
-            }
-
-            .stat-number {
-                font-size: 2em;
-            }
-
-            .stat-label {
-                font-size: 0.85em;
-            }
-
-            .game-header h2 {
-                font-size: 1.6em;
-            }
-
-            .player-name {
-                font-size: 1.1em;
-            }
-
-            .new-game-btn, .save-btn {
-                padding: 10px 20px;
-                font-size: 0.95em;
-                margin-right: 0;
-                margin-top: 15px;
-                display: block;
-                width: 100%;
-                max-width: 200px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
-        /* Extra small phones */
-        @media (max-width: 360px) {
-            .bingo-board {
-                gap: 6px;
-                padding: 10px;
-            }
-            
-            .bingo-square {
-                padding: 8px 4px;
-                min-height: 140px;
-            }
-            
-            .task-name {
-                font-size: 0.7em;
-                min-height: 38px;
-            }
-            
-            .number-input {
-                padding: 6px 4px;
-                font-size: 0.75em;
-            }
-
-            .welcome-screen h1 {
-                font-size: 1.9em;
-            }
-
-            .container {
-                padding: 12px 8px;
-                margin: 4px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Welcome Screen -->
-        <div class="welcome-screen" id="welcomeScreen">
-            <h1>Customer Care Bingo Challenge</h1>
-            <p>Enter any name to start playing! Your unique bingo card and progress are automatically saved to this device.</p>
-            
-            <div class="name-input">
-                <input type="text" id="firstName" placeholder="First Name" maxlength="20">
-                <input type="text" id="lastName" placeholder="Last Name" maxlength="20">
-                <button class="start-btn" id="startBtn" onclick="showRules()">Start My Bingo Game</button>
-            </div>
-        </div>
-
-        <!-- Ground Rules Screen -->
-        <div class="rules-screen" id="rulesScreen">
-            <h1>Customer Care Bingo Challenge</h1>
-            <div class="rules-container">
-                <h2>📋 Ground Rules & Guidelines</h2>
-                
-                <div class="rule-item">
-                    <input type="checkbox" class="rule-checkbox" id="rule1">
-                    <div class="rule-text">
-                        <strong>Multiple Use Allowed:</strong> You can use a single loan number for multiple bingo squares if the tasks apply to that same loan.
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <input type="checkbox" class="rule-checkbox" id="rule2">
-                    <div class="rule-text">
-                        <strong>Deadline Submission:</strong> After the challenge deadline, be sure to save your card to device and email your completed bingo card to <strong>funcommittee@nafinc.com</strong>.
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <input type="checkbox" class="rule-checkbox" id="rule3">
-                    <div class="rule-text">
-                        <strong>Valid Completion:</strong> Each task must be genuinely completed with accurate 10-digit loan numbers. Random numbers will not be accepted.
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <input type="checkbox" class="rule-checkbox" id="rule4">
-                    <div class="rule-text">
-                        <strong>Progress Saving:</strong> Your progress automatically saves to this device. Use the same device to maintain your progress throughout the challenge.
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <input type="checkbox" class="rule-checkbox" id="rule5">
-                    <div class="rule-text">
-                        <strong>Winning Patterns:</strong> To win, complete any valid bingo pattern: 5 in a row (horizontal, vertical, diagonal), full card, corners, or X pattern.
-                    </div>
-                </div>
-
-                <div class="rule-item">
-                    <input type="checkbox" class="rule-checkbox" id="rule6">
-                    <div class="rule-text">
-                        <strong>Fair Play:</strong> This challenge is for fun and team building. Be honest, help your colleagues, and enjoy the experience!
-                    </div>
-                </div>
-
-                <div class="rules-buttons">
-                    <button class="back-btn" onclick="goBackToWelcome()">← Back</button>
-                    <button class="continue-btn" id="continueBtn" onclick="startGame()" disabled>Continue to Bingo Card →</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Game Screen -->
-        <div class="game-screen" id="gameScreen">
-            <div class="game-header">
-                <h2>🎯 Bingo Challenge</h2>
-                <div class="player-name" id="playerName"></div>
-            </div>
-
-            <div class="game-container">
-                <!-- Left Pattern Examples -->
-                <div class="bingo-patterns">
-                    <div class="patterns-title">Winning Patterns</div>
-                    
-                    <div class="pattern-item">
-                        <div class="pattern-name">5 in a Row</div>
-                        <div class="pattern-grid">
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                        </div>
-                    </div>
-
-                    <div class="pattern-item">
-                        <div class="pattern-name">Diagonal</div>
-                        <div class="pattern-grid">
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell free"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell filled"></div>
-                        </div>
-                    </div>
-
-                    <div class="pattern-item">
-                        <div class="pattern-name">Four Corners</div>
-                        <div class="pattern-grid">
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell free"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell filled"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell"></div>
-                            <div class="pattern-cell filled"></div>
-                        </div>
-                    </div>
-
-                    <div class="pattern-item">
-                        <div class="pattern-name">X Pattern</div>
-                        <div class="pattern-grid">
-                            <div class="pattern-cell filled"></div>
+</html>
