@@ -1,0 +1,865 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.welcome-screen, .rules-screen {
+    text-align: center;
+}
+
+.rules-screen {
+    display: none;
+}
+
+.game-screen {
+    display: none;
+}
+
+.welcome-screen h1 {
+    color: #1d1d1f;
+    margin-bottom: 12px;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.welcome-screen p {
+    color: #86868b;
+    margin-bottom: 32px;
+    font-size: 1.1em;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.name-input {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.name-input input {
+    padding: 16px 20px;
+    border: 2px solid #f5f5f7;
+    border-radius: 12px;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.name-input input:focus {
+    outline: none;
+    border-color: #007aff;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+}
+
+.start-btn {
+    background: #007aff;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 8px;
+}
+
+.start-btn:hover:not(:disabled) {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.start-btn:active {
+    transform: translateY(0);
+}
+
+.start-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.rules-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    background: rgba(248, 248, 248, 0.8);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.rules-container h2 {
+    color: #1d1d1f;
+    font-size: 1.8em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.rule-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+.rule-item:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+}
+
+.rule-checkbox {
+    margin-right: 12px;
+    margin-top: 2px;
+    transform: scale(1.1);
+    accent-color: #007aff;
+}
+
+.rule-text {
+    flex: 1;
+    color: #1d1d1f;
+    font-size: 0.95em;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.rule-text strong {
+    color: #007aff;
+    font-weight: 700;
+}
+
+.rules-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.back-btn {
+    background: rgba(118, 118, 128, 0.12);
+    color: #007aff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: rgba(118, 118, 128, 0.2);
+    transform: translateY(-1px);
+}
+
+.continue-btn {
+    background: #007aff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.continue-btn:hover:not(:disabled) {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.continue-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.game-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-screen .bingo-patterns {
+    flex: 0 0 180px;
+    background: rgba(248, 248, 248, 0.8);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.welcome-screen .bingo-patterns,
+.rules-screen .bingo-patterns {
+    display: none;
+}
+
+.patterns-title {
+    color: #1d1d1f;
+    font-size: 1em;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+
+.pattern-item {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.pattern-name {
+    color: #86868b;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.pattern-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    max-width: 70px;
+    margin: 0 auto;
+    background: #d1d1d6;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.pattern-cell {
+    width: 12px;
+    height: 12px;
+    background: #f2f2f7;
+}
+
+.pattern-cell.filled {
+    background: #007aff;
+}
+
+.pattern-cell.free {
+    background: #ff9500;
+}
+
+.bingo-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.game-header h2 {
+    color: #1d1d1f;
+    margin-bottom: 4px;
+    font-weight: 700;
+    font-size: 1.8em;
+    letter-spacing: -0.02em;
+}
+
+.player-name {
+    color: #007aff;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.bingo-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(248, 248, 248, 0.5);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bingo-square {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: all 0.2s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bingo-square:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: rgba(0, 122, 255, 0.3);
+}
+
+.bingo-square.completed {
+    background: #007aff;
+    color: white;
+    border-color: #007aff;
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.bingo-square.completed::before {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bingo-square.free-space {
+    background: #ff9500;
+    color: white;
+    border-color: #ff9500;
+    box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
+}
+
+.free-space .task-name {
+    font-size: 1em;
+    color: white;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.task-name {
+    font-weight: 600;
+    font-size: 0.85em;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    color: #1d1d1f;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+
+.number-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d1d1d6;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 500;
+    background: #f2f2f7;
+    color: #1d1d1f;
+    transition: all 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', monospace;
+}
+
+.number-input:focus {
+    outline: none;
+    border-color: #007aff;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.number-input::placeholder {
+    color: #86868b;
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.completed .number-input {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.completed .number-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.completed .task-name {
+    color: white;
+}
+
+.progress-section {
+    margin-top: 32px;
+    text-align: center;
+    padding: 24px;
+    background: rgba(248, 248, 248, 0.8);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.progress-section h3 {
+    color: #1d1d1f;
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 1.3em;
+    letter-spacing: -0.01em;
+}
+
+.progress-bar {
+    background: #f2f2f7;
+    border-radius: 10px;
+    height: 8px;
+    margin: 16px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: #007aff;
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    width: 4%;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 16px;
+}
+
+.stat {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #007aff;
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    color: #86868b;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.new-game-btn {
+    background: #34c759;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+
+.new-game-btn:hover {
+    background: #28a745;
+    transform: translateY(-1px);
+}
+
+.save-btn {
+    background: #007aff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}-game-btn {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.new-game-btn:hover {
+    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+}
+
+.save-btn:hover {
+    background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(49, 130, 206, 0.4);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 16px;
+        border-radius: 16px;
+    }
+
+    .game-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .game-screen .bingo-patterns {
+        flex: none;
+        order: -1;
+        padding: 12px;
+    }
+
+    .patterns-title {
+        font-size: 0.9em;
+    }
+
+    .pattern-item {
+        display: inline-block;
+        margin: 0 6px 8px 0;
+        vertical-align: top;
+    }
+
+    .pattern-grid {
+        max-width: 50px;
+    }
+
+    .pattern-cell {
+        width: 8px;
+        height: 8px;
+    }
+
+    .rules-container {
+        padding: 20px;
+        margin: 0 8px;
+    }
+
+    .rules-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .back-btn, .continue-btn {
+        width: 100%;
+    }
+    
+    .bingo-board {
+        gap: 6px;
+        padding: 16px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .bingo-square {
+        padding: 12px 8px;
+        min-height: 100px;
+        border-radius: 10px;
+    }
+    
+    .task-name {
+        font-size: 0.75em;
+        min-height: 32px;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+    
+    .number-input {
+        padding: 6px 8px;
+        font-size: 0.75em;
+        border-radius: 6px;
+    }
+
+    .progress-section {
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+    .progress-section h3 {
+        font-size: 1.2em;
+    }
+
+    .stats {
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .stat-number {
+        font-size: 2em;
+    }
+
+    .welcome-screen h1 {
+        font-size: 2.2em;
+        margin-bottom: 12px;
+    }
+
+    .welcome-screen p {
+        font-size: 1em;
+        margin-bottom: 24px;
+        padding: 0 4px;
+    }
+
+    .game-header {
+        margin-bottom: 20px;
+    }
+
+    .game-header h2 {
+        font-size: 1.6em;
+    }
+
+    .player-name {
+        font-size: 1em;
+    }
+
+    .name-input {
+        max-width: 280px;
+    }
+
+    .name-input input {
+        padding: 14px 16px;
+        font-size: 0.95em;
+    }
+
+    .start-btn {
+        padding: 14px 28px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 16px;
+        margin: 12px;
+    }
+
+    .welcome-screen h1 {
+        font-size: 2em;
+        line-height: 1.1;
+    }
+
+    .welcome-screen p {
+        font-size: 0.95em;
+        padding: 0 2px;
+    }
+    
+    .bingo-board {
+        gap: 4px;
+        padding: 12px;
+    }
+    
+    .bingo-square {
+        padding: 10px 6px;
+        min-height: 90px;
+        border-radius: 8px;
+    }
+    
+    .task-name {
+        font-size: 0.7em;
+        min-height: 28px;
+        line-height: 1.1;
+        margin-bottom: 6px;
+    }
+    
+    .number-input {
+        padding: 5px 6px;
+        font-size: 0.7em;
+        border-radius: 4px;
+    }
+
+    .progress-section {
+        padding: 12px;
+        margin-top: 16px;
+    }
+
+    .progress-section h3 {
+        font-size: 1.1em;
+    }
+
+    .stats {
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .stat-number {
+        font-size: 1.8em;
+    }
+
+    .stat-label {
+        font-size: 0.8em;
+    }
+
+    .game-header h2 {
+        font-size: 1.4em;
+    }
+
+    .player-name {
+        font-size: 0.95em;
+    }
+
+    .new-game-btn, .save-btn {
+        padding: 10px 16px;
+        font-size: 0.9em;
+        margin-right: 0;
+        margin-top: 12px;
+        display: block;
+        width: 100%;
+        max-width: 180px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .name-input {
+        max-width: 260px;
+    }
+
+    .name-input input {
+        padding: 12px 14px;
+        font-size: 0.9em;
+    }
+
+    .start-btn {
+        padding: 12px 24px;
+        font-size: 0.95em;
+    }
+
+    .rules-container {
+        padding: 16px;
+    }
+
+    .rules-container h2 {
+        font-size: 1.5em;
+    }
+
+    .rule-item {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .rule-text {
+        font-size: 0.9em;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+    .bingo-board {
+        gap: 3px;
+        padding: 8px;
+    }
+    
+    .bingo-square {
+        padding: 8px 4px;
+        min-height: 80px;
+    }
+    
+    .task-name {
+        font-size: 0.65em;
+        min-height: 24px;
+    }
+    
+    .number-input {
+        padding: 4px 5px;
+        font-size: 0.65em;
+    }
+
+    .welcome-screen h1 {
+        font-size: 1.8em;
+    }
+
+    .container {
+        padding: 12px;
+        margin: 8px;
+    }
+
+    .name-input {
+        max-width: 240px;
+    }
+
+    .name-input input {
+        padding: 10px 12px;
+        font-size: 0.85em;
+    }
+
+    .start-btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
