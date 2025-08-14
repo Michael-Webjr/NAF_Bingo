@@ -3,14 +3,614 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Care Bingo Challenge DEMOOO </title>
+    <title>Customer Care Bingo Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome and Rules Screens (single column) -->
+    <div class="welcome-rules-wrapper">
+        <div class="container">
+            <!-- Welcome Screen -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <h1>Customer Care Bingo Challenge</h1>
+                <p>Enter any name to start playing! Your unique bingo card and progress are automatically saved to this device.</p>
+                
+                <div class="name-input">
+                    <input type="text" id="firstName" placeholder="First Name" maxlength="20">
+                    <input type="text" id="lastName" placeholder="Last Name" maxlength="20">
+                    <button class="start-btn" id="startBtn" onclick="showRules()">Start My Bingo Game</button>
+                </div>
+            </div>
+
+            <!-- Ground Rules Screen -->
+            <div class="rules-screen" id="rulesScreen">
+                <h1>Customer Care Bingo Challenge</h1>
+                <div class="rules-container">
+                    <h2>📋 Ground Rules & Guidelines</h2>
+                    
+                    <div class="rule-item">
+                        <input type="checkbox" class="rule-checkbox" id="rule1">
+                        <div class="rule-text">
+                            <strong>Multiple Use Allowed:</strong> You can use a single loan number for multiple bingo squares if the tasks apply to that same loan.
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <input type="checkbox" class="rule-checkbox" id="rule2">
+                        <div class="rule-text">
+                            <strong>Deadline Submission:</strong> After the challenge deadline, be sure to save your card to device and email your completed bingo card to <strong>funcommittee@nafinc.com</strong>.
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <input type="checkbox" class="rule-checkbox" id="rule3">
+                        <div class="rule-text">
+                            <strong>Valid Completion:</strong> Each task must be genuinely completed with accurate 10-digit loan numbers. Random numbers will not be accepted.
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <input type="checkbox" class="rule-checkbox" id="rule4">
+                        <div class="rule-text">
+                            <strong>Progress Saving:</strong> Your progress automatically saves to this device. Use the same device to maintain your progress throughout the challenge.
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <input type="checkbox" class="rule-checkbox" id="rule5">
+                        <div class="rule-text">
+                            <strong>Winning Patterns:</strong> To win, complete any valid bingo pattern: 5 in a row (horizontal, vertical, diagonal), full card, corners, or X pattern.
+                        </div>
+                    </div>
+
+                    <div class="rule-item">
+                        <input type="checkbox" class="rule-checkbox" id="rule6">
+                        <div class="rule-text">
+                            <strong>Fair Play:</strong> This challenge is for fun and team building. Be honest, help your colleagues, and enjoy the experience!
+                        </div>
+                    </div>
+
+                    <div class="rules-buttons">
+                        <button class="back-btn" onclick="goBackToWelcome()">← Back</button>
+                        <button class="continue-btn" id="continueBtn" onclick="startGame()" disabled>Continue to Bingo Card →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen (three column layout) -->
+    <div class="main-layout" id="gameLayout" style="display: none;">
+        <!-- Left Patterns -->
+        <div class="side-patterns">
+            <h3>Winning Patterns</h3>
+            
+            <div class="pattern-item">
+                <div class="pattern-name">5 in a Row</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">Diagonal</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">+ Sign</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell free"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">T Shape</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">Border</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell free"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell free"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">Four Corners</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell free"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">X Pattern</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell free"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">Full Card</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell free"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell filled"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Game Content -->
+        <div class="container">
+            <div class="game-screen" id="gameScreen">
+                <div class="game-header">
+                    <h2>🎯 Bingo Challenge</h2>
+                    <div class="player-name" id="playerName"></div>
+                </div>
+
+                <!-- Mobile patterns (shown on smaller screens) -->
+                <div class="patterns-mobile">
+                    <div class="pattern-item">
+                        <div class="pattern-name">5 in a Row</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
+                        <div class="pattern-name">Diagonal</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell free"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
+                        <div class="pattern-name">Four Corners</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell free"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
+                        <div class="pattern-name">X Pattern</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell free"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell"></div>
+                            <div class="pattern-cell filled"></div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-item">
+                        <div class="pattern-name">Full Card</div>
+                        <div class="pattern-grid">
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell free"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                            <div class="pattern-cell filled"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-container">
+                    <div class="bingo-board" id="bingoBoard">
+                        <!-- Bingo squares will be generated here -->
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number" id="completedCount">1</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="totalCount">25</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="progressPercent">4%</div>
+                            <div class="stat-label">Progress</div>
+                        </div>
+                    </div>
+                    <button class="new-game-btn" onclick="newGame()">Reset My Progress</button>
+                    <button class="save-btn" onclick="saveToDevice()">Save to Device</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Patterns -->
+        <div class="side-patterns">
+            <h3>More Patterns</h3>
+            
+            <div class="pattern-item">
+                <div class="pattern-name">Vertical</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-name">L Shape</div>
+                <div class="pattern-grid">
+                    <div class="pattern-cell filled"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div class="pattern-cell"></div>
+                    <div<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Care Bingo Challenge</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <!-- Welcome Screen -->
         <div class="welcome-screen" id="welcomeScreen">
-            <h1>Customer Care Bingo Challenge DEMO123</h1>
+            <h1>Customer Care Bingo Challenge</h1>
             <p>Enter any name to start playing! Your unique bingo card and progress are automatically saved to this device.</p>
             
             <div class="name-input">
@@ -598,4 +1198,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
