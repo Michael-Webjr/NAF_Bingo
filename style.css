@@ -294,58 +294,68 @@ body {
 .bingo-board {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 12px;
-    max-width: 500px;
+    gap: 16px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
-    background: #f8f9ff;
-    border-radius: 20px;
-    box-shadow: inset 0 2px 10px rgba(102, 126, 234, 0.08);
+    padding: 30px;
+    background: linear-gradient(135deg, #8b7ed8 0%, #a394ed 100%);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(139, 126, 216, 0.3);
 }
 
 .bingo-square {
     background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 16px 12px;
+    border: 3px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 16px;
     text-align: center;
     transition: all 0.3s ease;
-    min-height: 160px;
+    min-height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .bingo-square:hover {
     border-color: #667eea;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.25);
+    transform: translateY(-3px);
 }
 
 .bingo-square.completed {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-color: #667eea;
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    transform: translateY(-2px);
 }
 
 .bingo-square.completed::before {
     content: '✓';
     position: absolute;
-    top: 8px;
-    right: 12px;
-    font-size: 18px;
+    top: 12px;
+    right: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.2);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bingo-square.free-space {
     background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
     color: white;
     border-color: #ed8936;
-    box-shadow: 0 8px 25px rgba(237, 137, 54, 0.3);
+    box-shadow: 0 8px 25px rgba(237, 137, 54, 0.4);
+    transform: translateY(-2px);
 }
 
 .free-space .task-name {
@@ -353,31 +363,36 @@ body {
     color: white;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .task-name {
-    font-weight: 600;
-    font-size: 0.875em;
-    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 0.95em;
+    margin-bottom: 16px;
     line-height: 1.3;
     color: #2d3748;
-    min-height: 40px;
+    min-height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    letter-spacing: -0.01em;
 }
 
 .number-input {
     width: 100%;
-    padding: 10px 8px;
+    padding: 12px 10px;
     border: 2px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: 8px;
     text-align: center;
-    font-size: 0.875em;
+    font-size: 0.9em;
     font-weight: 600;
-    background: #f7fafc;
-    letter-spacing: 1px;
+    background: #f8fafc;
+    letter-spacing: 0.5px;
     font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
     transition: all 0.2s ease;
     color: #4a5568;
@@ -387,12 +402,13 @@ body {
     outline: none;
     border-color: #667eea;
     background: white;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
 .number-input::placeholder {
     color: #a0aec0;
-    font-size: 0.8em;
+    font-size: 0.85em;
+    font-weight: 500;
 }
 
 .completed .number-input {
@@ -564,30 +580,30 @@ body {
     }
     
     .bingo-board {
-        gap: 10px;
-        padding: 16px;
+        gap: 12px;
+        padding: 20px;
         max-width: 100%;
         margin: 0 auto;
     }
     
     .bingo-square {
-        padding: 12px 8px;
-        min-height: 160px;
-        border-radius: 14px;
+        padding: 16px 12px;
+        min-height: 130px;
+        border-radius: 10px;
     }
     
     .task-name {
-        font-size: 0.8em;
-        min-height: 45px;
+        font-size: 0.85em;
+        min-height: 40px;
         line-height: 1.2;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
     
     .number-input {
         padding: 10px 8px;
         font-size: 0.85em;
-        border-radius: 10px;
-        letter-spacing: 0.5px;
+        border-radius: 6px;
+        letter-spacing: 0.3px;
     }
 
     .progress-section {
@@ -649,28 +665,28 @@ body {
     }
     
     .bingo-board {
-        gap: 8px;
-        padding: 12px;
+        gap: 10px;
+        padding: 16px;
     }
     
     .bingo-square {
-        padding: 10px 6px;
-        min-height: 150px;
-        border-radius: 12px;
+        padding: 12px 8px;
+        min-height: 120px;
+        border-radius: 8px;
     }
     
     .task-name {
-        font-size: 0.75em;
-        min-height: 42px;
+        font-size: 0.8em;
+        min-height: 38px;
         line-height: 1.2;
-        margin-bottom: 6px;
+        margin-bottom: 10px;
     }
     
     .number-input {
         padding: 8px 6px;
         font-size: 0.8em;
-        border-radius: 8px;
-        letter-spacing: 0.3px;
+        border-radius: 6px;
+        letter-spacing: 0.2px;
     }
 
     .progress-section {
@@ -719,18 +735,18 @@ body {
 /* Extra small phones */
 @media (max-width: 360px) {
     .bingo-board {
-        gap: 6px;
-        padding: 10px;
+        gap: 8px;
+        padding: 12px;
     }
     
     .bingo-square {
-        padding: 8px 4px;
-        min-height: 140px;
+        padding: 10px 6px;
+        min-height: 110px;
     }
     
     .task-name {
-        font-size: 0.7em;
-        min-height: 38px;
+        font-size: 0.75em;
+        min-height: 35px;
     }
     
     .number-input {
