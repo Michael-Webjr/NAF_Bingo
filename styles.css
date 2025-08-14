@@ -571,6 +571,38 @@ body {
     box-shadow: 0 8px 20px rgba(49, 130, 206, 0.4);
 }
 
+@media (max-width: 1200px) {
+    .game-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .game-screen .bingo-patterns {
+        display: none;
+    }
+    
+    .patterns-mobile {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+        padding: 16px;
+        background: rgba(248, 248, 248, 0.8);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .patterns-mobile .pattern-item {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1201px) {
+    .patterns-mobile {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 20px;
@@ -579,73 +611,30 @@ body {
     }
 
     .game-container {
-        flex-direction: column;
         gap: 16px;
-    }
-
-    .game-screen .bingo-patterns {
-        flex: none;
-        order: -1;
-        padding: 12px;
-    }
-
-    .patterns-title {
-        font-size: 0.9em;
-    }
-
-    .pattern-item {
-        display: inline-block;
-        margin: 0 6px 8px 0;
-        vertical-align: top;
-    }
-
-    .pattern-grid {
-        max-width: 50px;
-    }
-
-    .pattern-cell {
-        width: 8px;
-        height: 8px;
-    }
-
-    .rules-container {
-        padding: 20px;
-        margin: 0 8px;
-    }
-
-    .rules-buttons {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .back-btn, .continue-btn {
-        width: 100%;
     }
     
     .bingo-board {
-        gap: 6px;
+        gap: 8px;
         padding: 16px;
-        max-width: 100%;
-        margin: 0 auto;
     }
     
     .bingo-square {
-        padding: 12px 8px;
-        min-height: 100px;
+        padding: 16px 12px;
+        min-height: 140px;
         border-radius: 10px;
     }
     
     .task-name {
-        font-size: 0.75em;
-        min-height: 32px;
-        line-height: 1.2;
-        margin-bottom: 8px;
+        font-size: 0.8em;
+        min-height: 40px;
+        margin-bottom: 12px;
     }
     
     .number-input {
-        padding: 6px 8px;
-        font-size: 0.75em;
-        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 0.85em;
+        min-width: 100px;
     }
 
     .progress-section {
@@ -702,6 +691,20 @@ body {
         padding: 14px 28px;
         font-size: 1em;
     }
+
+    .rules-container {
+        padding: 20px;
+        margin: 0 8px;
+    }
+
+    .rules-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .back-btn, .continue-btn {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -721,27 +724,28 @@ body {
     }
     
     .bingo-board {
-        gap: 4px;
+        gap: 6px;
         padding: 12px;
     }
     
     .bingo-square {
-        padding: 10px 6px;
-        min-height: 90px;
+        padding: 12px 8px;
+        min-height: 120px;
         border-radius: 8px;
     }
     
     .task-name {
-        font-size: 0.7em;
-        min-height: 28px;
+        font-size: 0.75em;
+        min-height: 36px;
         line-height: 1.1;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
     
     .number-input {
-        padding: 5px 6px;
-        font-size: 0.7em;
-        border-radius: 4px;
+        padding: 8px 10px;
+        font-size: 0.8em;
+        border-radius: 6px;
+        min-width: 90px;
     }
 
     .progress-section {
@@ -821,23 +825,24 @@ body {
 /* Extra small phones */
 @media (max-width: 360px) {
     .bingo-board {
-        gap: 3px;
+        gap: 4px;
         padding: 8px;
     }
     
     .bingo-square {
-        padding: 8px 4px;
-        min-height: 80px;
+        padding: 10px 6px;
+        min-height: 100px;
     }
     
     .task-name {
-        font-size: 0.65em;
-        min-height: 24px;
+        font-size: 0.7em;
+        min-height: 32px;
     }
     
     .number-input {
-        padding: 4px 5px;
-        font-size: 0.65em;
+        padding: 6px 8px;
+        font-size: 0.75em;
+        min-width: 80px;
     }
 
     .welcome-screen h1 {
