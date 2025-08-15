@@ -17,7 +17,7 @@ const allTasks = [
     "Outbound Dialer Call",
     "Reissued a check",
     "SII Script",
-    "Trnsfr for Matic or Retention offer",
+    "Matic/Retention offer completed",
     "CCADCH",
     "Wrike Request",
     "Added an A3P",
