@@ -512,12 +512,123 @@ body {
 
 /* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
+    body {
+        padding: 5px;
+        align-items: flex-start;
+        background-attachment: scroll;
+    }
+
     .container {
         padding: 16px;
-        margin: 8px;
+        margin: 5px 0;
         border-radius: 20px;
         max-width: 98vw;
-        max-height: 98vh;
+        min-height: auto;
+        height: auto;
+        max-height: none;
+    }
+
+    .welcome-screen {
+        padding: 24px 16px;
+        height: auto;
+    }
+
+    .rules-screen {
+        height: auto;
+        overflow: visible;
+    }
+
+    .game-screen {
+        height: auto;
+        overflow: visible;
+    }
+
+    .welcome-features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin: 24px 0;
+    }
+
+    .feature-card {
+        padding: 16px 12px;
+    }
+
+    .feature-icon {
+        font-size: 2em;
+        margin-bottom: 8px;
+    }
+
+    .feature-title {
+        font-size: 1em;
+        margin-bottom: 6px;
+    }
+
+    .feature-desc {
+        font-size: 0.85em;
+    }
+
+    .welcome-screen h1 {
+        font-size: 2.2em;
+        margin-bottom: 12px;
+    }
+
+    .welcome-screen p {
+        font-size: 1.1em;
+        margin-bottom: 24px;
+    }
+
+    .name-input {
+        max-width: 100%;
+        gap: 16px;
+    }
+
+    .input-group input {
+        padding: 20px 24px;
+        font-size: 1.1em;
+        border-radius: 16px;
+    }
+
+    .input-icon {
+        font-size: 1.2em;
+        right: 16px;
+    }
+
+    .start-btn {
+        padding: 20px 40px;
+        font-size: 1.1em;
+        border-radius: 16px;
+    }
+
+    .rules-container {
+        padding: 20px 16px;
+        margin: 0;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .rules-container h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .rule-item {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .rule-text {
+        font-size: 0.95em;
+    }
+
+    .rules-buttons {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .back-btn, .continue-btn {
+        width: 100%;
+        padding: 16px;
     }
 
     .bingo-board {
@@ -574,11 +685,74 @@ body {
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 3px;
+    }
+
     .container {
         padding: 12px;
-        margin: 6px;
+        margin: 2px 0;
         max-width: 99vw;
-        max-height: 99vh;
+        min-height: auto;
+    }
+
+    .welcome-screen {
+        padding: 20px 12px;
+    }
+
+    .welcome-features {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin: 20px 0;
+    }
+
+    .feature-card {
+        padding: 12px 10px;
+    }
+
+    .welcome-screen h1 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+
+    .welcome-screen .emoji-decoration {
+        font-size: 1.5em;
+        margin: 0 4px;
+    }
+
+    .welcome-screen p {
+        font-size: 1em;
+        margin-bottom: 20px;
+        padding: 0 4px;
+    }
+
+    .input-group input {
+        padding: 18px 20px;
+        font-size: 1em;
+        border-radius: 14px;
+    }
+
+    .start-btn {
+        padding: 18px 36px;
+        font-size: 1em;
+        border-radius: 14px;
+    }
+
+    .rules-container {
+        padding: 16px 12px;
+    }
+
+    .rules-container h2 {
+        font-size: 1.4em;
+    }
+
+    .rule-item {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .rule-text {
+        font-size: 0.9em;
     }
     
     .bingo-board {
@@ -625,32 +799,17 @@ body {
         font-size: 1.6em;
     }
 
-    .new-game-btn, .save-btn {
+    .save-btn {
         padding: 10px 20px;
         font-size: 0.8em;
-        margin: 10px 6px 0;
+        margin: 10px auto 0;
+        display: block;
+        width: 100%;
+        max-width: 200px;
     }
 
-    .welcome-screen h1 {
-        font-size: 2.2em;
-    }
-
-    .welcome-screen p {
-        font-size: 1em;
-        padding: 0 8px;
-    }
-
-    .name-input {
-        max-width: 300px;
-    }
-
-    .name-input input {
-        padding: 16px 20px;
-        font-size: 1em;
-    }
-
-    .start-btn {
-        padding: 16px 32px;
-        font-size: 1em;
+    .welcome-footer {
+        margin-top: 20px;
+        padding-top: 16px;
     }
 }
