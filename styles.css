@@ -1,4 +1,14 @@
-* {
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -503,119 +513,144 @@ body {
 /* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
-        margin: 5px;
-        border-radius: 16px;
+        padding: 16px;
+        margin: 8px;
+        border-radius: 20px;
         max-width: 98vw;
         max-height: 98vh;
     }
 
     .bingo-board {
-        gap: 2px;
-        padding: 3px;
-        max-width: 180px;
+        gap: 8px;
+        padding: 16px;
+        max-width: 90vw;
     }
     
     .bingo-square {
-        padding: 1px;
-        border-radius: 3px;
-        min-height: 30px;
-        max-height: 30px;
+        padding: 12px;
+        border-radius: 12px;
+        min-height: 120px;
+        max-height: 120px;
     }
     
     .task-name {
-        font-size: 0.3em;
-        margin-bottom: 1px;
+        font-size: 0.8em;
+        margin-bottom: 10px;
+        padding: 6px;
     }
     
     .number-input {
-        padding: 1px 2px;
-        font-size: 0.25em;
-        border-radius: 2px;
-        height: 10px;
-        min-height: 10px;
+        padding: 10px 12px;
+        font-size: 0.75em;
+        border-radius: 10px;
+        height: 36px;
+        min-height: 36px;
     }
 
     .game-header h2 {
-        font-size: 0.9em;
+        font-size: 1.3em;
     }
 
     .player-name {
-        font-size: 0.7em;
-    }
-
-    .progress-section {
-        padding: 6px;
-        margin-top: 4px;
-    }
-
-    .progress-section h3 {
-        font-size: 0.7em;
-    }
-
-    .stat-number {
         font-size: 1em;
     }
 
+    .progress-section {
+        padding: 16px;
+        margin-top: 12px;
+    }
+
+    .progress-section h3 {
+        font-size: 1.1em;
+    }
+
+    .stat-number {
+        font-size: 1.8em;
+    }
+
     .stat-label {
-        font-size: 0.55em;
+        font-size: 0.8em;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 10px;
-        margin: 3px;
+        padding: 12px;
+        margin: 6px;
         max-width: 99vw;
         max-height: 99vh;
     }
     
     .bingo-board {
-        gap: 1px;
-        padding: 2px;
-        max-width: 160px;
+        gap: 6px;
+        padding: 12px;
+        max-width: 95vw;
     }
     
     .bingo-square {
-        padding: 1px;
-        border-radius: 2px;
-        min-height: 25px;
-        max-height: 25px;
+        padding: 8px;
+        border-radius: 10px;
+        min-height: 100px;
+        max-height: 100px;
     }
     
     .task-name {
-        font-size: 0.25em;
-        margin-bottom: 0.5px;
+        font-size: 0.7em;
+        margin-bottom: 8px;
+        padding: 4px;
     }
     
     .number-input {
-        padding: 0.5px 1px;
-        font-size: 0.2em;
-        border-radius: 1px;
-        height: 8px;
-        min-height: 8px;
+        padding: 8px 10px;
+        font-size: 0.65em;
+        border-radius: 8px;
+        height: 32px;
+        min-height: 32px;
     }
 
     .game-header h2 {
-        font-size: 0.8em;
+        font-size: 1.2em;
     }
 
     .player-name {
-        font-size: 0.6em;
-    }
-
-    .progress-section {
-        padding: 4px;
-        margin-top: 3px;
-    }
-
-    .stat-number {
         font-size: 0.9em;
     }
 
+    .progress-section {
+        padding: 12px;
+        margin-top: 10px;
+    }
+
+    .stat-number {
+        font-size: 1.6em;
+    }
+
     .new-game-btn, .save-btn {
-        padding: 3px 6px;
-        font-size: 0.6em;
-        margin: 3px 1px 0;
+        padding: 10px 20px;
+        font-size: 0.8em;
+        margin: 10px 6px 0;
+    }
+
+    .welcome-screen h1 {
+        font-size: 2.2em;
+    }
+
+    .welcome-screen p {
+        font-size: 1em;
+        padding: 0 8px;
+    }
+
+    .name-input {
+        max-width: 300px;
+    }
+
+    .name-input input {
+        padding: 16px 20px;
+        font-size: 1em;
+    }
+
+    .start-btn {
+        padding: 16px 32px;
+        font-size: 1em;
     }
 }
