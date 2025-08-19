@@ -222,6 +222,9 @@ function startGame() {
     }, 500);
 }
 
+// ONLY REPLACE THESE TWO FUNCTIONS IN YOUR EXISTING script.js
+// Do not change anything else to preserve card generation
+
 function createBingoBoard() {
     const board = document.getElementById('bingoBoard');
     board.innerHTML = '';
@@ -248,16 +251,18 @@ function createBingoBoard() {
             
             const numberValue = state ? state.number : '';
             
+            // Check if this is the "Recognize Someone" task
+            const isRecognizeTask = task === "Recognize Someone";
+            
             square.innerHTML = `
                 <div class="task-name">${task}</div>
                 <input type="text" 
                        class="number-input" 
-                       placeholder="Enter 10-digit number"
-                       maxlength="10"
+                       placeholder="${isRecognizeTask ? 'Enter name' : 'Enter 10-digit number'}"
+                       maxlength="${isRecognizeTask ? '50' : '10'}"
                        value="${numberValue}"
                        oninput="handleNumberInput(${i}, this.value)"
-                       pattern="[0-9]*"
-                       inputmode="numeric">
+                       ${isRecognizeTask ? '' : 'pattern="[0-9]*" inputmode="numeric"'}>
             `;
         }
         
@@ -266,8 +271,15 @@ function createBingoBoard() {
 }
 
 function handleNumberInput(index, value) {
-    // Only allow digits
-    value = value.replace(/\D/g, '');
+    // Get the task for this square
+    const taskIndex = index > 12 ? index - 1 : index;
+    const task = playerTasks[taskIndex];
+    const isRecognizeTask = task === "Recognize Someone";
+    
+    if (!isRecognizeTask) {
+        // Only allow digits for non-recognize tasks
+        value = value.replace(/\D/g, '');
+    }
     
     // Update the input field
     event.target.value = value;
@@ -280,9 +292,15 @@ function handleNumberInput(index, value) {
     // Update game state
     gameState[index].number = value;
     
-    // Check if task is completed (10 digits entered)
+    // Check if task is completed
     const wasCompleted = gameState[index].completed;
-    gameState[index].completed = value.length === 10;
+    if (isRecognizeTask) {
+        // For recognize task, completed when there's any text (at least 2 characters)
+        gameState[index].completed = value.trim().length >= 2;
+    } else {
+        // For other tasks, completed when 10 digits entered
+        gameState[index].completed = value.length === 10;
+    }
     
     // Save progress immediately
     saveGameState(currentPlayer, gameState);
